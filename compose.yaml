@@ -1,0 +1,7 @@
+﻿services:
+  bankmore.tariffs.web:
+    image: bankmore.tariffs.web
+    build:
+      context: .
+      dockerfile: BankMore.Tariffs.Web/Dockerfile
+
