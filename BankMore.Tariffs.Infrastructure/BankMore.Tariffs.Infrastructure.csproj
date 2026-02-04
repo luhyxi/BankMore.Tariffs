@@ -1,3 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Dapper"/>
+        <PackageReference Include="Microsoft.Data.Sqlite"/>
+        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions"/>
+        <PackageReference Include="Microsoft.Extensions.Options"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions"/>
+        <PackageReference Include="Swashbuckle.AspNetCore"/>
+        <PackageReference Include="KafkaFlow"/>
+        <PackageReference Include="KafkaFlow.Abstractions"/>
+        <PackageReference Include="KafkaFlow.Extensions.Hosting"/>
+        <PackageReference Include="KafkaFlow.Microsoft.DependencyInjection"/>
+        <PackageReference Include="KafkaFlow.Serializer.JsonCore"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\BankMore.Tariffs.Application\BankMore.Tariffs.Application.csproj"/>
+        <ProjectReference Include="..\BankMore.Tariffs.Domain\BankMore.Tariffs.Domain.csproj"/>
+    </ItemGroup>
+
 </Project>

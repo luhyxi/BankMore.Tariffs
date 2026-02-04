@@ -1,48 +1,18 @@
+using BankMore.Tariffs.Application.Tariff.Create;
+using BankMore.Tariffs.Web.Configs;
+
+using KafkaFlow;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+using var loggerFactory = LoggerFactory.Create(config => config.AddConsole());
+var startupLogger = loggerFactory.CreateLogger<Program>();
+
+builder.Services.AddKafkaConfig(builder.Configuration, startupLogger);
+builder.Services.AddServiceConfigs(startupLogger, builder);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-    {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast")
-    .WithOpenApi();
-
-#pragma warning disable S6966
 app.Run();
-#pragma warning restore S6966
-
-#pragma warning disable S3903
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-#pragma warning restore S3903
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
